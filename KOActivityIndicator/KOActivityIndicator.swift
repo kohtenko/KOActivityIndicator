@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Async
 
 public enum KOActivityIndicatorStyle: Int{
     case NoSpin
@@ -78,14 +77,16 @@ public class KOActivityIndicator: UIView {
             dotsDelay = 0.1
             
         }
-        Async.main(after: 0) { () -> Void in
-            self.startLayerAnimation(self.dots[0], toPosition: CGPoint(x: self.localCenter.x, y: self.localCenter.y - self.dotSide - self.dotLargestDistance))
-            }.main(after: dotsDelay) { () -> Void in
-                self.startLayerAnimation(self.dots[2], toPosition: CGPoint(x: self.localCenter.x + self.dotSide + self.dotLargestDistance, y: self.localCenter.y))
-            }.main(after: dotsDelay) { () -> Void in
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(dotsDelay * Double(NSEC_PER_SEC)))
+        self.startLayerAnimation(self.dots[0], toPosition: CGPoint(x: self.localCenter.x, y: self.localCenter.y - self.dotSide - self.dotLargestDistance))
+        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+            self.startLayerAnimation(self.dots[2], toPosition: CGPoint(x: self.localCenter.x + self.dotSide + self.dotLargestDistance, y: self.localCenter.y))
+            dispatch_after(time, dispatch_get_main_queue()){ () -> Void in
                 self.startLayerAnimation(self.dots[3], toPosition: CGPoint(x: self.localCenter.x, y: self.localCenter.y + self.dotSide + self.dotLargestDistance))
-            }.main(after: dotsDelay) { () -> Void in
-                self.startLayerAnimation(self.dots[1], toPosition: CGPoint(x: self.localCenter.x - self.dotSide - self.dotLargestDistance, y: self.localCenter.y))
+                dispatch_after(time, dispatch_get_main_queue()){ () -> Void in
+                    self.startLayerAnimation(self.dots[1], toPosition: CGPoint(x: self.localCenter.x - self.dotSide - self.dotLargestDistance, y: self.localCenter.y))
+                }
+            }
         }
     }
     
