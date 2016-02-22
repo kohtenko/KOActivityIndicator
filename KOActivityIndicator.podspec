@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "KOActivityIndicator"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "Easy styled, IBDesigneble and IBInspectable activity indicator on swift"
 
   s.description  = <<-DESC

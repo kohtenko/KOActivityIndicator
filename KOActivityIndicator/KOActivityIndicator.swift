@@ -104,7 +104,7 @@ public class KOActivityIndicator: UIView {
     
     private func createLayersIfNeeded(){
         if dots.count == 0{
-            for index in 1...4{
+            for _ in 1...4{
                 let layer = CALayer()
                 layer.backgroundColor = dotsColor.CGColor
                 layer.bounds = CGRect(x: 0, y: 0, width: dotSide, height: dotSide)
@@ -152,8 +152,6 @@ public class KOActivityIndicator: UIView {
                 return 1
             case .NoSpin:
                 return 1
-            default:
-                return 1
             }
         }
     }
@@ -172,12 +170,10 @@ public class KOActivityIndicator: UIView {
                 NSValue(CGPoint: position1),
                 NSValue(CGPoint: position2),
                 NSValue(CGPoint: position1)]
-        default:
-            return []
         }
     }
     
-    private var positionKeyTimes: [AnyObject] {
+    private var positionKeyTimes: [NSNumber] {
         get{
             switch style{
             case .SpinInEnd:
@@ -186,13 +182,11 @@ public class KOActivityIndicator: UIView {
                 return [0, 0.2, 0.5, 0.7, 1]
             case .NoSpin:
                 return [0, 0.5, 1]
-            default:
-                return []
             }
         }
     }
     
-    private var rotationKeyTimes: [AnyObject] {
+    private var rotationKeyTimes: [NSNumber] {
         get{
             switch style{
             case .SpinInEnd:
@@ -200,8 +194,6 @@ public class KOActivityIndicator: UIView {
             case .SpinInMove:
                 return [0.0, 0.25, 0.5, 1]
             case .NoSpin:
-                return []
-            default:
                 return []
             }
         }
@@ -215,8 +207,6 @@ public class KOActivityIndicator: UIView {
             case .SpinInMove:
                 return [M_PI_4, 5 * M_PI_4 , 2 * M_PI + M_PI_4, 2 * M_PI + M_PI_4]
             case .NoSpin:
-                return []
-            default:
                 return []
             }
         }
